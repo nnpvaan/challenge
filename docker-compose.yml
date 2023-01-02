@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=opusmatch
+      - POSTGRES_PASSWORD=opusmatch
+      - POSTGRES_DB=opusmatch
+
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: migration
+    entrypoint: ["alembic", "upgrade", "head"]
+    environment:
+      DATABASE_URI: postgresql+psycopg2://opusmatch:opusmatch@postgres:5432/opusmatch
+    depends_on:
+      - postgres
+
+  backend-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi
+    ports:
+      - 8080:8080
+    environment:
+      DATABASE_URI: postgresql+psycopg2://opusmatch:opusmatch@postgres:5432/opusmatch
+    depends_on:
+      - postgres
+      - migration
+
+volumes:
+  pgdata:
