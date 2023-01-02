@@ -12,6 +12,7 @@ class WorkerSchema(BaseModel):
     class Config:
         use_enum_values = True
 
+
 class WorkerResponseSchema(WorkerSchema):
     id: str
 

@@ -20,9 +20,10 @@ async def create_job(
         db: AsyncSession,
         job: JobSchema,
 ):
-    """Create Job
+    """
+    Create Job
 
-     Args:
+    Args:
         db (AsyncSession): database session
         job (JobSchema): input job data
 
@@ -52,9 +53,10 @@ async def get_job_recommendations(
         worker_id: str,
         k: int = 10
 ):
-    """Get Job Recommendations
+    """
+    Get Job Recommendations
 
-     Args:
+    Args:
         db (AsyncSession): database session
         k (int): top k result
         worker_id (str): worker id
