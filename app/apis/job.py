@@ -9,6 +9,7 @@ from app.schemas.job import (
     JobResponseSchema,
     JobSchema,
     GetJobsResponseSchema,
+    SearchOptionsSchema
 )
 
 logger = logging.getLogger("__main__")
@@ -57,3 +58,30 @@ async def get_job_recommendations(
 ):
     logger.info("Get Job Recommendations")
     return await controllers.job.get_job_recommendations(db, worker_id, k)
+
+
+@router.get(
+    "/",
+    response_model=GetJobsResponseSchema,
+    responses=GET_JOBS_STATUS_CODES,
+    status_code=status.HTTP_200_OK
+)
+async def get_jobs(
+        worker_id: str,
+        discipline: Union[str, None] = None,
+        specialties: Union[List[str], None] = Query(default=None),
+        state: Union[str, None] = None,
+        wage_min: Union[float, None] = None,
+        db: AsyncSession = Depends(create_session),
+):
+    logger.info("Get Job List")
+    search_request = {
+        "discipline": discipline,
+        "specialties": specialties,
+        "state": state,
+        "wage_min": wage_min
+    }
+
+    search_options = SearchOptionsSchema(**search_request)
+
+    return await controllers.job.get_jobs(db, worker_id, search_options)

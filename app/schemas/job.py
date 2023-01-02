@@ -26,3 +26,13 @@ class GetJobsSchema(BaseModel):
 
 class GetJobsResponseSchema(BaseModel):
     data: List[GetJobsSchema]
+
+
+class SearchOptionsSchema(BaseModel):
+    discipline: Optional[Discipline]
+    specialties: Optional[List[Specialty]]
+    state: Optional[State]
+    wage_min: Optional[float]
+
+    class Config:
+        use_enum_values = True
