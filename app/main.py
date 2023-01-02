@@ -7,6 +7,7 @@ from starlette.responses import HTMLResponse
 
 from app.__version__ import __version__
 from app.config import config
+from app.exceptions.handle_exceptions import configure_exceptions_handlers
 from app.configure_logging import configure_logging
 
 from app.apis import configure_routes
@@ -24,6 +25,7 @@ app = FastAPI(
 )
 # Update and set up configs
 configure_logging(log_level=config.LOG_LEVEL)
+configure_exceptions_handlers(app)
 
 # Configure routes and add dependencies
 configure_routes(app)
