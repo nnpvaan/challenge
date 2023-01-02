@@ -89,4 +89,3 @@ async def get_job_recommendations(
     return {
         "data": job_recommendations
     }
-
