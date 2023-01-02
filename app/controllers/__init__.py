@@ -1,1 +1,1 @@
-from app.controllers import job, worker
+from app.controllers import job, worker, applicant
