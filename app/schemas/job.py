@@ -17,3 +17,12 @@ class JobResponseSchema(JobSchema):
 
     class Config:
         orm_mode = True
+
+
+class GetJobsSchema(BaseModel):
+    job_id: str
+    matching_score: float
+
+
+class GetJobsResponseSchema(BaseModel):
+    data: List[GetJobsSchema]

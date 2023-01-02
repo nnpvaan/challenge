@@ -17,10 +17,13 @@ async def create_applicant(
         db: AsyncSession,
         request: CreateApplicantRequestSchema,
 ):
-    """Create Applicant
-     Args:
+    """
+    Create Applicant
+
+    Args:
         db (AsyncSession): database session
         request (CreateApplicantRequestSchema): input data
+
     Returns:
         ApplicantResponseSchema: return applicant information
     """

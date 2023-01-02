@@ -19,10 +19,13 @@ async def create_worker(
         db: AsyncSession,
         worker: WorkerSchema,
 ):
-    """Create Worker
-     Args:
+    """
+    Create Worker
+    
+    Args:
         db (AsyncSession): database session
         worker (WorkerSchema): input worker data
+
     Returns:
         WorkerResponseSchema: return worker information
     """
