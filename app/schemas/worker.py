@@ -17,3 +17,7 @@ class WorkerResponseSchema(WorkerSchema):
 
     class Config:
         orm_mode = True
+
+
+class UpdateWorkerRequestSchema(BaseModel):
+    avg_weekly_pay_amount: float

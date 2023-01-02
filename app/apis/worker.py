@@ -6,6 +6,7 @@ from app.database.depends import create_session
 from app.schemas.worker import (
     WorkerResponseSchema,
     WorkerSchema,
+    UpdateWorkerRequestSchema
 )
 
 logger = logging.getLogger("__main__")
@@ -18,6 +19,12 @@ router = APIRouter(
 CREATE_WORKER_STATUS_CODES = {
     200: {"description": "OK"},
     201: {"description": "Worker is Created"},
+    204: {"description": "No Content"}
+}
+
+UPDATE_WORKER_STATUS_CODES = {
+    200: {"description": "OK"},
+    202: {"description": "Accepted"},
     204: {"description": "No Content"}
 }
 
@@ -34,3 +41,18 @@ async def create_worker(
 ):
     logger.info("Create worker")
     return await controllers.worker.create_worker(db, worker)
+
+
+@router.put(
+    "/{worker_id}",
+    response_model=WorkerResponseSchema,
+    responses=UPDATE_WORKER_STATUS_CODES,    # type: ignore
+    status_code=status.HTTP_200_OK
+)
+async def update_worker(
+        worker_id: str,
+        request: UpdateWorkerRequestSchema,
+        db: AsyncSession = Depends(create_session)
+):
+    logger.info("Update worker")
+    return await controllers.worker.update_worker(db, worker_id, request)
