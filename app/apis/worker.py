@@ -33,7 +33,7 @@ UPDATE_WORKER_STATUS_CODES = {
     "",
     response_model=WorkerResponseSchema,
     responses=CREATE_WORKER_STATUS_CODES,    # type: ignore
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_201_CREATED
 )
 async def create_worker(
         worker: WorkerSchema,

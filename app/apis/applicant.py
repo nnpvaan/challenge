@@ -31,7 +31,7 @@ CREATE_APPLICANT_STATUS_CODES = {
     "",
     response_model=ApplicantResponseSchema,
     responses=CREATE_APPLICANT_STATUS_CODES,    # type: ignore
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_201_CREATED
 )
 async def create_applicant(
         request: CreateApplicantRequestSchema,
